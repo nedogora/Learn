@@ -1,17 +1,17 @@
-#include <iostream>
+п»ї#include <iostream>
 using namespace std;
 
 void main()
 {
 	setlocale(LC_ALL, "");
 
-	const int M = 3;	//Количество строк
-	const int N = 3;	//Количество столбцов
+	const int M = 3;	//РљРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚СЂРѕРє
+	const int N = 3;	//РљРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚РѕР»Р±С†РѕРІ
 	int Arr[M][N] = {};
 	int Brr[M][N] = {};
-	int Crr[M][N] = {};	//Результат
+	int Crr[M][N] = {};	//Р РµР·СѓР»СЊС‚Р°С‚
 
-	//Заполенение случайными числами
+	//Р—Р°РїРѕР»РµРЅРµРЅРёРµ СЃР»СѓС‡Р°Р№РЅС‹РјРё С‡РёСЃР»Р°РјРё
 	for (int i = 0; i < M; i++)
 	{
 		for (int j = 0; j < N; j++)
@@ -32,8 +32,8 @@ void main()
 		}
 	}
 
-	//Вывод
-	cout << "Матрица А:\n\n";
+	//Р’С‹РІРѕРґ
+	cout << "РњР°С‚СЂРёС†Р° Рђ:\n\n";
 	for (int i = 0; i < M; i++)
 	{
 		for (int j = 0; j < N; j++)
@@ -44,7 +44,7 @@ void main()
 	}
 	cout << endl;
 
-	cout << "Матрица B:\n\n";
+	cout << "РњР°С‚СЂРёС†Р° B:\n\n";
 	for (int i = 0; i < M; i++)
 	{
 		for (int j = 0; j < N; j++)
@@ -55,7 +55,7 @@ void main()
 	}
 	cout << endl;
 
-	cout << "Матрица C:\n\n";
+	cout << "РњР°С‚СЂРёС†Р° C:\n\n";
 	for (int i = 0; i < M; i++)
 	{
 		for (int j = 0; j < N; j++)
