@@ -8,7 +8,7 @@ char tab = '\t';
 void main()
 {
 	setlocale(LC_ALL, "");
-	
+
 	const int N = 5;	//Количество строк/столбцов
 	int Arr[N][N] = {};
 
@@ -41,8 +41,9 @@ void main()
 		{
 			for (int k = i; k < N; k++)
 			{
-				int l;
-				for ((k == i) ? l = j + 1 : l = 0; l < N; l++)
+				//int l;
+				//for ((k == i) ? l = j + 1 : l = 0; l < N; l++)
+				for (int l = k == i ? j + 1 : 0; l < N; l++)
 				{
 					int temp;
 					if (Arr[k][l] < Arr[i][j])
@@ -78,7 +79,7 @@ void main()
 			int enter = 1;
 			for (int k = 0; k <= i; k++)
 			{
-				for (int l = 0; l < j; l++)
+				for (int l = 0; l < (k == i ? j : N); l++)
 				{
 					if (Arr[i][j] == Arr[k][l])
 					{
