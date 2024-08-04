@@ -10,8 +10,8 @@ void main()
 
 	const int N = 10;
 	int Arr[N];	//Исходный массив
-	bool metBefore = false;
-	int enter = 1;
+	//bool metBefore = false;
+	//int enter = 1;
 
 	//Заполнение случайными числами
 	for (int i = 0; i < N; i++) Arr[i] = rand() % 5;
@@ -26,8 +26,8 @@ void main()
 	//Поиск повторяющихся значений
 	for (int i = 0; i < N; i++)
 	{
-		metBefore = false;
-		enter = 1;
+		bool metBefore = false;
+		int enter = 1;
 		for (int j = i - 1; j > 0; j--)
 		{
 			if (Arr[i] == Arr[j])
@@ -36,9 +36,9 @@ void main()
 				break;
 			}
 		}
-
-		if (metBefore == false)
-		{
+		if (metBefore)continue;
+		//if (metBefore == false)
+		//{
 			for (int j = i + 1; j < N; j++)
 			{
 				if (Arr[i] == Arr[j])
@@ -50,7 +50,7 @@ void main()
 			if(enter > 1)printf("Значение %i встречается %i раз\n", Arr[i], enter);
 			//if(enter > 1)cout << Arr[i] << " встречается " << enter << " раз." << endl;
 			
-		}
+		//}
 	}
 
 
