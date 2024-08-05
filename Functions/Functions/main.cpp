@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 using namespace std;
 
 //#define FACTORIAL
@@ -14,7 +14,7 @@ void main()
 #ifdef FACTORIAL
 
 	int n;
-	cout << "Ââåäèòå ÷èñëî: "; cin >> n;
+	cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ‡Ð¸ÑÐ»Ð¾: "; cin >> n;
 	cout << n << "! = " << factorial(n) << endl;
 
 #endif // FACTORIAL
@@ -23,8 +23,8 @@ void main()
 
 	double n, d;
 
-	cout << "Ââåäèòå ÷èñëî: "; cin >> n;
-	cout << "Ââåäèòå ñòåïåíü: "; cin >> d;
+	cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ‡Ð¸ÑÐ»Ð¾: "; cin >> n;
+	cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÑÑ‚ÐµÐ¿ÐµÐ½ÑŒ: "; cin >> d;
 
 	cout << n << " ^ " << d << " = " << deg(n, d) << endl;
 
