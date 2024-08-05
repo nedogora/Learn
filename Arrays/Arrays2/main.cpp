@@ -3,8 +3,8 @@ using namespace std;
 
 char tab = '\t';
 
-#define REPEATS
-#define SORT
+//#define REPEATS
+//#define SORT
 
 void main()
 {
@@ -32,8 +32,31 @@ void main()
 		}
 		cout << endl;
 	}
+
 	cout << "\n=============================================\n";
 
+	for (int i = 0; i < ROWS*COLS; i++)
+	{
+		for (int j = i + 1; j < ROWS*COLS; j++)
+		{
+			if (Arr[0][j] < Arr[0][i])
+			{
+				int temp = Arr[0][i];
+				Arr[0][i] = Arr[0][j];
+				Arr[0][j] = temp;
+			}
+		}
+	}
+
+	//Вывод отсортированного массива:
+	for (int i = 0; i < ROWS; i++)
+	{
+		for (int j = 0; j < COLS; j++)
+		{
+			cout << Arr[i][j] << tab;
+		}
+		cout << endl;
+	}
 	
 #ifdef REPEATS
 	//Поиск повторяющихся значений
@@ -74,10 +97,7 @@ void main()
 	cout << "\n=============================================\n";
 #endif // REPEATS
 
-
-
 #ifdef SORT
-
 	//Сортировка:
 	for (int i = 0; i < ROWS; i++)
 	{
