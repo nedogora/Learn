@@ -16,22 +16,22 @@ void ShiftRight(int arr[], const int n, int c);	//Циклически сдви�
 void main()
 {
 	setlocale(LC_ALL, "");
-	const int n = 5;
-	int arr[n];
-	
-	FillRand(arr, n, 0, 10);
+	const int n = 10;
+	int arr[n] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+	//FillRand(arr, n, 0, 10);
 	Print(arr, n);
 	Sort(arr, n);
 	Print(arr, n);
 
-	cout << "\nShift Left:" << endl;
-	ShiftLeft(arr, n, 2);
+	//cout << "\nShift Left:" << endl;
+	//ShiftLeft(arr, n, 5);
 
-	Print(arr, n);
+	//Print(arr, n);
 
 	cout << "\nShift Right:" << endl;
 	ShiftRight(arr, n, 2);
-
+	
 	Print(arr, n);
 
 	cout << "\nSum: " << Sum(arr, n) << endl;
@@ -123,13 +123,5 @@ void ShiftLeft(int arr[], const int n, int c)
 
 void ShiftRight(int arr[], const int n, int c)
 {
-	for (int i = 0; i < c; i++)
-	{
-		for (int j = n - 1; j > 0; j--)
-		{
-			int Temp = arr[j];
-			arr[j] = arr[j - 1];
-			arr[j - 1] = Temp;
-		}
-	}
+	ShiftLeft(arr, n, n - c);
 }
