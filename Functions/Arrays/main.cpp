@@ -4,14 +4,14 @@ using namespace std;
 #define tab "\t"
 
 void FillRand(int arr[], const int n, int min, int max);	//Заполняет массив случайными числами. Обычно массив заполняется случайными числами от 0-100, но при необходимости пользователь может передать пределы генерации случайных чисел
-void Print(int arr[], const int n);		//Выводит массив на экран
-int Sum(int arr[], const int n);	//Возвращает сумму э-ов массива
-double Avg(int arr[], const int n);		//Возвращает среднее арифметическое
-int MinValueIn(int arr[], const int n);		//Мin значение
-int MaxValueIn(int arr[], const int n);		//Max значение
-void Sort(int arr[], const int n);	//Сортировка
-void ShiftLeft(int arr[], const int n, int c);	//Циклически сдвигает массив на заданное к-во э-ов влево
-void ShiftRight(int arr[], const int n, int c);	//Циклически сдвигает массив на заданное к-во э-ов вправо
+template <typename T> void Print(T arr[], const int n);		//Выводит массив на экран
+template <typename T> T Sum(T arr[], const int n);	//Возвращает сумму э-ов массива
+template <typename T> double Avg(T arr[], const int n);		//Возвращает среднее арифметическое
+template <typename T> T MinValueIn(T arr[], const int n);		//Мin значение
+template <typename T> T MaxValueIn(T arr[], const int n);		//Max значение
+template <typename T> void Sort(T arr[], const int n);	//Сортировка
+template <typename T> void ShiftLeft(T arr[], const int n, int c);	//Циклически сдвигает массив на заданное к-во э-ов влево
+template <typename T> void ShiftRight(T arr[], const int n, int c);	//Циклически сдвигает массив на заданное к-во э-ов вправо
 
 void main()
 {
@@ -47,7 +47,9 @@ void FillRand(int arr[], const int n, int min, int max)
 		arr[i] = rand() % (max - min) + min;
 	}
 }
-void Print(int arr[], const int n)
+
+template <typename T>
+void Print(T arr[], const int n)
 {
 	for (int i = 0; i < n; i++)
 	{
@@ -56,21 +58,24 @@ void Print(int arr[], const int n)
 	cout << endl;
 }
 
-int Sum(int arr[], const int n)
+template <typename T>
+T Sum(T arr[], const int n)
 {
-	int s = 0;
+	T s = 0;
 	for (int i = 0; i < n; i++) s += arr[i];
 	return s;
 }
 
-double Avg(int arr[], const int n)
+template <typename T>
+double Avg(T arr[], const int n)
 {
 	return (double)Sum(arr, n) / n;
 }
 
-int MinValueIn(int arr[], const int n)
+template <typename T>
+T MinValueIn(T arr[], const int n)
 {
-	int min = arr[0];
+	T min = arr[0];
 
 	for (int i = 0; i < n; i++)
 	{
@@ -80,9 +85,10 @@ int MinValueIn(int arr[], const int n)
 	return min;
 }
 
-int MaxValueIn(int arr[], const int n)
+template <typename T>
+T MaxValueIn(T arr[], const int n)
 {
-	int max = arr[0];
+	T max = arr[0];
 
 	for (int i = 0; i < n; i++)
 	{
@@ -92,7 +98,8 @@ int MaxValueIn(int arr[], const int n)
 	return max;
 }
 
-void Sort(int arr[], const int n)
+template <typename T>
+void Sort(T arr[], const int n)
 {
 	for (int i = 0; i < n; i++)
 	{
@@ -100,7 +107,7 @@ void Sort(int arr[], const int n)
 		{
 			if (arr[i] > arr[j])
 			{
-				int Temp = arr[i];
+				T Temp = arr[i];
 				arr[i] = arr[j];
 				arr[j] = Temp;
 			}
@@ -108,20 +115,22 @@ void Sort(int arr[], const int n)
 	}
 }
 
-void ShiftLeft(int arr[], const int n, int c)
+template <typename T>
+void ShiftLeft(T arr[], const int n, int c)
 {
 	for (int i = 0; i < c; i++)
 	{
 		for (int j = 0; j < n - 1; j++)
 		{
-			int Temp = arr[j];
+			T Temp = arr[j];
 			arr[j] = arr[j + 1];
 			arr[j + 1] = Temp;
 		}
 	}
 }
 
-void ShiftRight(int arr[], const int n, int c)
+template <typename T>
+void ShiftRight(T arr[], const int n, int c)
 {
 	ShiftLeft(arr, n, n - c);
 }
