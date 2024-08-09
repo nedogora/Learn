@@ -4,6 +4,9 @@ using namespace std;
 #define tab "\t"
 
 void FillRand(int arr[], const int n, int min, int max);	//Заполняет массив случайными числами. Обычно массив заполняется случайными числами от 0-100, но при необходимости пользователь может передать пределы генерации случайных чисел
+void FillRand(double arr[], const int n, int min = 0, int max = 100);
+void FillRand(char arr[], const int n, int min = 0, int max = 256);
+
 template <typename T> void Print(T arr[], const int n);		//Выводит массив на экран
 template <typename T> T Sum(T arr[], const int n);	//Возвращает сумму э-ов массива
 template <typename T> double Avg(T arr[], const int n);		//Возвращает среднее арифметическое
@@ -41,6 +44,22 @@ void main()
 }
 
 void FillRand(int arr[], const int n, int min, int max)
+{
+	for (int i = 0; i < n; i++)
+	{
+		arr[i] = rand() % (max - min) + min;
+	}
+}
+
+void FillRand(double arr[], const int n, int min, int max)
+{
+	for (int i = 0; i < n; i++)
+	{
+		arr[i] = rand() % (max - min) + min;
+	}
+}
+
+void FillRand(char arr[], const int n, int min, int max)
 {
 	for (int i = 0; i < n; i++)
 	{
