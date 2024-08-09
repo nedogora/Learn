@@ -5,7 +5,7 @@ using namespace std;
 
 void FillRand(int arr[], const int n, int min, int max);	//Заполняет массив случайными числами. Обычно массив заполняется случайными числами от 0-100, но при необходимости пользователь может передать пределы генерации случайных чисел
 void FillRand(double arr[], const int n, int min = 0, int max = 100);
-void FillRand(char arr[], const int n, int min = 0, int max = 256);
+void FillRand(char arr[], const int n);
 
 template <typename T> void Print(T arr[], const int n);		//Выводит массив на экран
 template <typename T> T Sum(T arr[], const int n);	//Возвращает сумму э-ов массива
@@ -20,9 +20,9 @@ void main()
 {
 	setlocale(LC_ALL, "");
 	const int n = 10;
-	int arr[n] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+	char arr[n] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
-	//FillRand(arr, n, 0, 10);
+	FillRand(arr, n);
 	Print(arr, n);
 	Sort(arr, n);
 	Print(arr, n);
@@ -53,17 +53,19 @@ void FillRand(int arr[], const int n, int min, int max)
 
 void FillRand(double arr[], const int n, int min, int max)
 {
+	min *= 100;
+	max *= 100;
 	for (int i = 0; i < n; i++)
 	{
-		arr[i] = rand() % (max - min) + min;
+		arr[i] = double(rand() % (max - min) + min)/100;
 	}
 }
 
-void FillRand(char arr[], const int n, int min, int max)
+void FillRand(char arr[], const int n)
 {
 	for (int i = 0; i < n; i++)
 	{
-		arr[i] = rand() % (max - min) + min;
+		arr[i] = rand();
 	}
 }
 
