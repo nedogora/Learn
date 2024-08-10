@@ -503,7 +503,7 @@ void ShiftLeft(int arr[ROWS][COLS], const int ROWS, const int COLS, int c)
 {
 	for (int r = 0; r < ROWS; r++)
 	{
-		for (int i = 0; i < c; i++)
+		/*for (int i = 0; i < c; i++)
 		{
 			for (int j = 0; j < COLS - 1; j++)
 			{
@@ -511,7 +511,8 @@ void ShiftLeft(int arr[ROWS][COLS], const int ROWS, const int COLS, int c)
 				arr[r][j] = arr[r][j + 1];
 				arr[r][j + 1] = temp;
 			}
-		}
+		}*/
+		ShiftLeft(arr[r], COLS, c);
 	}
 }
 
