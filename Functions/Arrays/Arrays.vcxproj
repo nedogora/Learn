@@ -156,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Avg.h" />
+    <ClInclude Include="constants.h" />
     <ClInclude Include="FillRand.h" />
     <ClInclude Include="MaxValueIn.h" />
     <ClInclude Include="MinValueIn.h" />
@@ -163,6 +164,7 @@
     <ClInclude Include="ShiftLeft.h" />
     <ClInclude Include="ShiftRight.h" />
     <ClInclude Include="Sort.h" />
+    <ClInclude Include="stdafx.h" />
     <ClInclude Include="Sum.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

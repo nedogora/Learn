@@ -1,17 +1,15 @@
 #include "Print.h"
 
-template <typename T>
-void Print(T arr[], const int n)
+template <typename T>void Print(T arr[], const int n)
 {
+	using namespace std;
 	for (int i = 0; i < n; i++)
 	{
 		cout << arr[i] << tab;
 	}
 	cout << endl;
 }
-
-template <typename T>
-void Print(T arr[ROWS][COLS], const int ROWS, const int COLS)
+template <typename T>void Print(T arr[ROWS][COLS], const int ROWS, const int COLS)
 {
 	for (int i = 0; i < ROWS; i++)
 	{

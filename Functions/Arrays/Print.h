@@ -1,8 +1,6 @@
 #pragma once
-#include<iostream>
-using namespace std;
-
-#include "FillRand.h"
+#include "constants.h"
+#include "stdafx.h"
 
 #define tab "\t"
 
