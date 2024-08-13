@@ -9,8 +9,8 @@ void FibonacciTo(int n, int a = 0, int b = 1);	// Выводи на экран �
 void Fibonacci(int n, int a = 0, int b = 1);	// Вывод на экран заданного количества членов из ряда Фибоначчи
 
 //#define FACTORIAL
-//#define POWER
-#define FIBONACCI
+#define POWER
+//#define FIBONACCI
 
 void main()
 {
@@ -36,6 +36,8 @@ void main()
 	cout << "Введите максимальное значение: "; cin >> n;
 	FibonacciTo(n);
 #endif // FIBONACCI
+
+	main();
 }
 
 int Factorial(int n)
@@ -52,11 +54,12 @@ double Power(double n, double d)
 	if (d < 0)
 	{
 		n = 1 / n;
-		n *= (-1);
+		d *= (-1);
 	}
 
 	return n * Power(n, d - 1);*/
-	return (d == 0 ? 1 : (d < 0 ? -(1 / n) : n) * Power(n, d - 1));
+	//cout << n << tab << d << endl;
+	return d == 0 ? 1 : (d < 0 ? 1 / n * Power(1 / n, -d - 1) : n * Power(n, d - 1));
 }
 
 void FibonacciTo(int n, int a, int b)
