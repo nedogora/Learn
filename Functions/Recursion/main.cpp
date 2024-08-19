@@ -59,7 +59,8 @@ double Power(double n, double d)
 
 	return n * Power(n, d - 1);*/
 	//cout << n << tab << d << endl;
-	return d == 0 ? 1 : (d < 0 ? 1 / n * Power(1 / n, -d - 1) : n * Power(n, d - 1));
+	return d == 0 ? 1 : d > 0 ? n * Power(n, d - 1) : 1 / Power(n, -d);
+	//return d == 0 ? 1 : (d < 0 ? 1 / n * Power(1 / n, -d - 1) : n * Power(n, d - 1));
 }
 
 void FibonacciTo(int n, int a, int b)
