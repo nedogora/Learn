@@ -1,4 +1,63 @@
-/*
-	Есть массив< заполненный случайныит числами, нужно создать еще 2 массива минимально возможного размера even и odd.
-	В массив even нужно скопироовать все четные числа из исходного  массива, а в массив odd все нечетные
+п»ї/*
+	Р•СЃС‚СЊ РјР°СЃСЃРёРІ Р·Р°РїРѕР»РЅРµРЅРЅС‹Р№ СЃР»СѓС‡Р°Р№РЅС‹РјРё С‡РёСЃР»Р°РјРё, РЅСѓР¶РЅРѕ СЃРѕР·РґР°С‚СЊ РµС‰Рµ 2 РјР°СЃСЃРёРІР° РјРёРЅРёРјР°Р»СЊРЅРѕ РІРѕР·РјРѕР¶РЅРѕРіРѕ СЂР°Р·РјРµСЂР° even Рё odd.
+	Р’ РјР°СЃСЃРёРІ even РЅСѓР¶РЅРѕ СЃРєРѕРїРёСЂРѕРѕРІР°С‚СЊ РІСЃРµ С‡РµС‚РЅС‹Рµ С‡РёСЃР»Р° РёР· РёСЃС…РѕРґРЅРѕРіРѕ  РјР°СЃСЃРёРІР°, Р° РІ РјР°СЃСЃРёРІ odd РІСЃРµ РЅРµС‡РµС‚РЅС‹Рµ
 */
+#include <iostream>
+using namespace std;
+
+#define tab '\t'
+
+int* Append(int* Arr, int &n, int number);
+
+void main()
+{
+	setlocale(LC_ALL, "");
+	int n, e = 0, o = 0;
+	cout << "Р’РІРµРґРёС‚Рµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ РјР°СЃСЃРёРІР°: "; cin >> n;
+	
+	int* Arr = new int[n];
+	int* even = new int[e];
+	int* odd = new int[o];
+
+	//Р—Р°РїРѕР»РЅРµРЅРёРµ СЃР»СѓС‡Р°Р№РЅС‹РјРё С‡РёСЃР»Р°РјРё
+	for (int i = 0; i < n; i++) Arr[i] = rand() % 100;
+
+	//Р’С‹РІРѕРґ
+	for (int i = 0; i < n; i++) cout << Arr[i] << tab;
+	cout << endl;
+
+	//РџРѕРёСЃРє С‡РµС‚РЅС‹С…/РЅРµС‡РµС‚РЅС‹С…
+	for (int i = 0; i < n; i++)
+	{
+		if (Arr[i] % 2 == 0) even = Append(even, e, Arr[i]);
+		else odd = Append(odd, o, Arr[i]);
+	}
+
+	cout << "\n------------ Even ------------" << endl;
+	for (int i = 0; i < e; i++) cout << even[i] << tab;
+	cout << endl;
+
+	cout << "\n------------ Odd ------------" << endl;
+	for (int i = 0; i < o; i++) cout << odd[i] << tab;
+	cout << endl;
+
+	delete[] Arr;
+	delete[] even;
+	delete[] odd;
+}
+
+int* Append(int* Arr, int &n, int number)
+{
+	int* new_Arr = new int[n + 1];
+	
+	for (int i = 0; i < n; i++)
+	{
+		new_Arr[i] = Arr[i];
+	}
+	
+	new_Arr[n] = number;
+	n++;
+	
+	delete[] Arr;
+	return new_Arr;
+}
