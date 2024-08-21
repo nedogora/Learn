@@ -101,9 +101,15 @@ int* Insert(int* Arr, int &n, int number, int index)
 
 	int* new_Arr = new int[n + 1];
 
-	for (int i = 0; i < index; i++) new_Arr[i] = Arr[i];
+	/*for (int i = 0; i < index; i++) new_Arr[i] = Arr[i];
 	new_Arr[index] = number;
-	for (int i = index; i < n; i++) new_Arr[i + 1] = Arr[i];
+	for (int i = index; i < n; i++) new_Arr[i + 1] = Arr[i];*/
+	for (int i = 0; i < n; i++)
+	{
+		//(i < index ? new_Arr[i] : new_Arr[i + 1]) = Arr[i];
+		new_Arr[i < index ? i : i + 1] = Arr[i];
+	}
+	new_Arr[index] = number;
 
 	n++;
 	delete[] Arr;
@@ -112,22 +118,18 @@ int* Insert(int* Arr, int &n, int number, int index)
 
 int* Pop_back(int* Arr, int &n)
 {
-	int* new_Arr = new int[n - 1];
+	int* new_Arr = new int[--n];
 
-	for (int i = 0; i < n - 1; i++) new_Arr[i] = Arr[i];
-
-	n--;
+	for (int i = 0; i < n; i++) new_Arr[i] = Arr[i];
 	delete[] Arr;
 	return new_Arr;
 }
 
 int* Pop_front(int* Arr, int &n)
 {
-	int* new_Arr = new int[n - 1];
+	int* new_Arr = new int[--n];
 
-	for (int i = 1; i < n; i++) new_Arr[i - 1] = Arr[i];
-
-	n--;
+	for (int i = 0; i < n; i++) new_Arr[i] = Arr[i+1];
 	delete[] Arr;
 	return new_Arr;
 }
@@ -140,12 +142,10 @@ int* Erase(int* Arr, int &n, int index)
 		return Arr;
 	}
 
-	int* new_Arr = new int[n - 1];
+	int* new_Arr = new int[--n];
 
 	for (int i = 0; i < index; i++) new_Arr[i] = Arr[i];
 	for (int i = index; i < n; i++)new_Arr[i] = Arr[i + 1];
-
-	n--;
 	delete[] Arr;
 	return new_Arr;
 }
