@@ -284,6 +284,7 @@ int* Erase(int* Arr, int &n, int index)
 
 int** Pop_row_back(int** Arr, int& rows, const int cols)
 {
+	delete[] Arr[rows - 1];
 	int** new_Arr = new int*[--rows];
 
 	for (int i = 0; i < rows; i++) new_Arr[i] = Arr[i];
@@ -293,6 +294,7 @@ int** Pop_row_back(int** Arr, int& rows, const int cols)
 
 int** Pop_row_front(int** Arr, int& rows, const int cols)
 {
+	delete[] Arr[0];
 	int** new_Arr = new int*[--rows];
 
 	for (int i = 0; i < rows; i++) new_Arr[i] = Arr[i + 1];
