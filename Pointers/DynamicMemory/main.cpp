@@ -6,8 +6,21 @@ using std::endl;
 
 #define tab '\t'
 
-template <typename T> void FillRand(T Arr[], const int n);
-template <typename T> void FillRand(T** Arr, const int rows, const int cols);
+template <typename T> T* Allocate(const int n);	// Выделение памяти
+template <typename T> T** Allocate(const int rows, const int cols);
+
+template <typename T> void Clear(T* Arr);	// Очистка памяти
+template <typename T> void Clear(T* Arr, const int rows);
+
+void FillRand(int Arr[], const int n, int min = 0, int max = 100);
+void FillRand(float Arr[], const int n, int min = 0, int max = 100);
+void FillRand(double Arr[], const int n, int min = 0, int max = 100);
+void FillRand(char Arr[], const int n);
+
+void FillRand(int** Arr, const int rows, const int cols, int min = 0, int max = 100);
+void FillRand(float** Arr, const int rows, const int cols, int min = 0, int max = 100);
+void FillRand(double** Arr, const int rows, const int cols, int min = 0, int max = 100);
+void FillRand(char** Arr, const int rows, const int cols);
 
 template <typename T> void Print(T Arr[], const int n);
 template <typename T> void Print(T** Arr, const int rows, const int cols);
@@ -46,18 +59,18 @@ void main()
 #ifdef DYNAMIC_MEMORY_1
 	int n;
 	cout << "Введите количество элементов массива: "; cin >> n;
-	char* Arr = new char[n];
+	int* Arr= Allocate<int>(n);
 
 	FillRand(Arr, n);
 	Print(Arr, n);
 
-	Arr = Push_back(Arr, n, 'B');
+	Arr = Push_back(Arr, n, 111);
 	Print(Arr, n);
 
-	Arr = Push_front(Arr, n, 'F');
+	Arr = Push_front(Arr, n, 111);
 	Print(Arr, n);
 
-	Arr = Insert(Arr, n, 'I', 3);
+	Arr = Insert(Arr, n, 111, 3);
 	Print(Arr, n);
 
 	Arr = Pop_back(Arr, n);
@@ -69,7 +82,7 @@ void main()
 	Arr = Erase(Arr, n, 2);
 	Print(Arr, n);
 
-	delete[] Arr;
+	Clear(Arr);
 #endif // DYNAMIC_MEMORY_1
 
 #ifdef DYNAMIC_MEMORY_2
@@ -77,11 +90,7 @@ void main()
 	cout << "Введите количество строк: "; cin >> rows;
 	cout << "Введите количество элементов строки: "; cin >> cols;
 
-	char** Arr = new char*[rows];
-	for (int i = 0; i < rows; i++)
-	{
-		Arr[i] = new char[cols] {};
-	}
+	int** Arr = Allocate<int>(rows, cols);
 
 	FillRand(Arr, rows, cols);
 	Print(Arr, rows, cols);
@@ -110,11 +119,7 @@ void main()
 	Arr = Erase_row(Arr, rows, cols, 2);
 	Print(Arr, rows, cols);
 
-	for (int i = 0; i < rows; i++)
-	{
-		delete[] Arr[i];
-	}
-	delete[] Arr;
+	Clear(Arr, rows);
 #endif // DYNAMIC_MEMORY_2
 
 #ifdef DYNAMIC_MEMORY_3
@@ -122,11 +127,7 @@ void main()
 	cout << "Введите количество строк: "; cin >> rows;
 	cout << "Введите количество элементов строки: "; cin >> cols;
 
-	char** Arr = new char*[rows];
-	for (int i = 0; i < rows; i++)
-	{
-		Arr[i] = new char[cols] {};
-	}
+	double** Arr = Allocate<double>(rows, cols);
 
 	FillRand(Arr, rows, cols);
 	Print(Arr, rows, cols);
@@ -155,26 +156,123 @@ void main()
 	Erase_col(Arr, rows, cols, 2);
 	Print(Arr, rows, cols);
 
+	Clear(Arr, rows);
+#endif // DYNAMIC_MEMORY_3
+}
+
+//////////// Выделение/Очищение памяти ////////////
+
+template <typename T>
+T* Allocate(const int n)
+{
+	return new T[n];
+}
+
+template <typename T>
+T** Allocate(const int rows, const int cols)
+{
+	T** Arr = new T*[rows];
+	for (int i = 0; i < rows; i++)
+	{
+		Arr[i] = new T[cols] {};
+	}
+	return Arr;
+}
+
+
+template <typename T>
+void Clear(T* Arr)
+{
+	delete[] Arr;
+}
+
+template <typename T>
+void Clear(T* Arr, const int rows)
+{
 	for (int i = 0; i < rows; i++)
 	{
 		delete[] Arr[i];
 	}
 	delete[] Arr;
-#endif // DYNAMIC_MEMORY_3
 }
 
+/////////////////// FillRand() /////////////////
 
-template <typename T>
-void FillRand(T Arr[], const int n)
+void FillRand(int Arr[], const int n, int min, int max)
 {
 	for (int i = 0; i < n; i++)
 	{
-		Arr[i] = rand() % 100;
+		Arr[i] = rand() % (max - min) + min;
 	}
 }
 
-template <typename T>
-void FillRand(T** Arr, const int rows, const int cols)
+void FillRand(float Arr[], const int n, int min, int max)
+{
+	min *= 100;
+	max *= 100;
+	for (int i = 0; i < n; i++)
+	{
+		Arr[i] = float(rand() % (max - min) + min) / 100;
+	}
+}
+
+void FillRand(double Arr[], const int n, int min, int max)
+{
+	min *= 100;
+	max *= 100;
+	for (int i = 0; i < n; i++)
+	{
+		Arr[i] = double(rand() % (max - min) + min) / 100;
+	}
+}
+
+void FillRand(char Arr[], const int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		Arr[i] = rand();
+	}
+}
+
+
+void FillRand(int** Arr, const int rows, const int cols, int min, int max)
+{
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < cols; j++)
+		{
+			Arr[i][j] = rand() % (max - min) + min;
+		}
+	}
+}
+
+void FillRand(float** Arr, const int rows, const int cols, int min, int max)
+{
+	min *= 100;
+	max *= 100;
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < cols; j++)
+		{
+			Arr[i][j] = float(rand() % (max - min) + min) / 100;
+		}
+	}
+}
+
+void FillRand(double** Arr, const int rows, const int cols, int min, int max)
+{
+	min *= 100;
+	max *= 100;
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < cols; j++)
+		{
+			Arr[i][j] = double(rand() % (max - min) + min) / 100;
+		}
+	}
+}
+
+void FillRand(char** Arr, const int rows, const int cols)
 {
 	for (int i = 0; i < rows; i++)
 	{
@@ -185,6 +283,7 @@ void FillRand(T** Arr, const int rows, const int cols)
 	}
 }
 
+/////////////////// Вывод /////////////////
 
 template <typename T>
 void Print(T Arr[], const int n)
@@ -209,6 +308,8 @@ void Print(T** Arr, const int rows, const int cols)
 	}
 }
 
+
+//////////// Добавление элементов ////////////
 
 template <typename T>
 T* Push_back(T* Arr, int &n, T element)
@@ -288,7 +389,7 @@ T** Push_row_front(T** Arr, int& rows, const int cols)
 {
 	T** new_Arr = new T*[rows + 1];
 
-	new_Arr[0] = new T[cols] {};
+	new_Arr[0] = new T[cols]{};
 	for (int i = 0; i < rows; i++) new_Arr[i + 1] = Arr[i];
 
 	rows++;
@@ -311,7 +412,7 @@ T** Insert_row(T** Arr, int& rows, const int cols, int index)
 	{
 		new_Arr[i < index ? i : i + 1] = Arr[i];
 	}
-	new_Arr[index] = new T[cols] {};
+	new_Arr[index] = new T[cols]{};
 
 	rows++;
 	delete[] Arr;
@@ -326,7 +427,7 @@ void Push_col_back(T** Arr, const int rows, int &cols)
 	{
 		T* Buffer = new T[cols + 1]{};
 		for (int j = 0; j < cols; j++)	Buffer[j] = Arr[i][j];
-		
+
 		delete[] Arr[i];
 		Arr[i] = Buffer;
 	}
@@ -340,7 +441,7 @@ void Push_col_front(T** Arr, const int rows, int& cols)
 	{
 		T* Buffer = new T[cols + 1]{};
 		for (int j = 0; j < cols; j++) Buffer[j + 1] = Arr[i][j];
-		
+
 		delete[] Arr[i];
 		Arr[i] = Buffer;
 	}
@@ -361,13 +462,15 @@ void Insert_col(T** Arr, const int rows, int& cols, int index)
 		T* Buffer = new T[cols + 1]{};
 		for (int j = 0; j < index; j++) Buffer[j] = Arr[i][j];
 		for (int j = index; j < cols; j++) Buffer[j + 1] = Arr[i][j];
-		
+
 		delete[] Arr[i];
 		Arr[i] = Buffer;
 	}
 	cols++;
 }
 
+
+//////////// Удаление элементов ////////////
 
 template <typename T>
 T* Pop_back(T* Arr, int &n)
@@ -410,10 +513,10 @@ T* Erase(T* Arr, int &n, int index)
 template <typename T>
 T** Pop_row_back(T** Arr, int& rows, const int cols)
 {
-	delete[] Arr[rows-1];
+	delete[] Arr[rows - 1];
 	T** new_Arr = new T*[--rows];
 
-	for (int i = 0; i < rows ; i++) new_Arr[i] = Arr[i];
+	for (int i = 0; i < rows; i++) new_Arr[i] = Arr[i];
 	delete[] Arr;
 	return new_Arr;
 }
@@ -454,7 +557,7 @@ void Pop_col_back(T** Arr, const int rows, int& cols)
 	{
 		T* Buffer = new T[cols - 1];
 		for (int j = 0; j < cols - 1; j++)	Buffer[j] = Arr[i][j];
-		
+
 		delete[] Arr[i];
 		Arr[i] = Buffer;
 	}
@@ -468,7 +571,7 @@ void Pop_col_front(T** Arr, const int rows, int& cols)
 	{
 		T* Buffer = new T[cols - 1];
 		for (int j = 0; j < cols - 1; j++)	Buffer[j] = Arr[i][j + 1];
-		
+
 		delete[] Arr[i];
 		Arr[i] = Buffer;
 	}
@@ -489,7 +592,7 @@ void Erase_col(T** Arr, const int rows, int& cols, int index)
 		T* Buffer = new T[cols - 1];
 		for (int j = 0; j < index; j++) Buffer[j] = Arr[i][j];
 		for (int j = index; j < cols; j++) Buffer[j] = Arr[i][j + 1];
-		
+
 		delete[]  Arr[i];
 		Arr[i] = Buffer;
 	}
