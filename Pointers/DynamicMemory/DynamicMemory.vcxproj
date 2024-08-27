@@ -143,7 +143,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Add.cpp" />
+    <ClCompile Include="Delete.cpp" />
+    <ClCompile Include="FillRand.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Print.cpp" />
+    <ClCompile Include="WorkWithMemory.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Add.h" />
+    <ClInclude Include="Delete.h" />
+    <ClInclude Include="FillRand.h" />
+    <ClInclude Include="Print.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="WorkWithMemory.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
