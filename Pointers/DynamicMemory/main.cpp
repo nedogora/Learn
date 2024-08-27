@@ -49,9 +49,9 @@ template <typename T> void Pop_col_back(T** Arr, const int rows, int& cols);	// 
 template <typename T> void Pop_col_front(T** Arr, const int rows, int& cols);	// Удаление первого столбца массива
 template <typename T> void Erase_col(T** Arr, const int rows, int& cols, int index);	// Удаление столбца по индексу
 
-//#define DYNAMIC_MEMORY_1
+#define DYNAMIC_MEMORY_1
 //#define DYNAMIC_MEMORY_2
-#define DYNAMIC_MEMORY_3
+//#define DYNAMIC_MEMORY_3
 
 void main()
 {
@@ -59,7 +59,7 @@ void main()
 #ifdef DYNAMIC_MEMORY_1
 	int n;
 	cout << "Введите количество элементов массива: "; cin >> n;
-	int* Arr= Allocate<int>(n);
+	int* Arr = Allocate<int>(n);
 
 	FillRand(Arr, n);
 	Print(Arr, n);
@@ -174,7 +174,7 @@ T** Allocate(const int rows, const int cols)
 	T** Arr = new T*[rows];
 	for (int i = 0; i < rows; i++)
 	{
-		Arr[i] = new T[cols] {};
+		Arr[i] = new T[cols]{};
 	}
 	return Arr;
 }
@@ -314,7 +314,7 @@ void Print(T** Arr, const int rows, const int cols)
 template <typename T>
 T* Push_back(T* Arr, int &n, T element)
 {
-	T* new_Arr = new T[n + 1];
+	/*T* new_Arr = new T[n + 1];
 
 	for (int i = 0; i < n; i++)
 	{
@@ -325,13 +325,15 @@ T* Push_back(T* Arr, int &n, T element)
 	n++;
 
 	delete[] Arr;
-	return new_Arr;
+	return new_Arr;*/
+
+	return Insert(Arr, n, element, n);
 }
 
 template <typename T>
 T* Push_front(T* Arr, int &n, T element)
 {
-	T* new_Arr = new T[n + 1];
+	/*T* new_Arr = new T[n + 1];
 
 	new_Arr[0] = element;
 	for (int i = 0; i < n; i++)
@@ -341,7 +343,9 @@ T* Push_front(T* Arr, int &n, T element)
 
 	n++;
 	delete[] Arr;
-	return new_Arr;
+	return new_Arr;*/
+
+	return Insert(Arr, n, element, 0);
 }
 
 template <typename T>
@@ -376,7 +380,7 @@ T** Push_row_back(T** Arr, int& rows, const int cols)
 {
 	/*T** new_Arr = new T*[rows + 1];
 
-	for 
+	for
 (int i = 0; i < rows; i++) new_Arr[i] = Arr[i];
 	new_Arr[rows] = new T[cols]{};
 
@@ -384,8 +388,10 @@ T** Push_row_back(T** Arr, int& rows, const int cols)
 	delete[] Arr;
 	return new_Arr;*/
 
-	T** new_Arr = Push_back(Arr, rows, new T[cols]{});
-	return new_Arr;
+	/*T** new_Arr = Push_back(Arr, rows, new T[cols]{});
+	return new_Arr;*/
+
+	return Push_back(Arr, rows, new T[cols]{});
 }
 
 template <typename T>
@@ -400,8 +406,10 @@ T** Push_row_front(T** Arr, int& rows, const int cols)
 	delete[] Arr;
 	return new_Arr;*/
 
-	T** new_Arr = Push_front(Arr, rows, new T[cols]{});
-	return new_Arr;
+	/*T** new_Arr = Push_front(Arr, rows, new T[cols]{});
+	return new_Arr;*/
+
+	return Push_front(Arr, rows, new T[cols]{});
 }
 
 template <typename T>
@@ -425,14 +433,10 @@ T** Insert_row(T** Arr, int& rows, const int cols, int index)
 	delete[] Arr;
 	return new_Arr;*/
 
-	if (index > rows)
-	{
-		cout << "Выход за пределы массива" << endl;
-		return Arr;
-	}
+	/*T** new_Arr = Insert(Arr, rows, new T[cols]{}, index);
+	return new_Arr;*/
 
-	T** new_Arr = Insert(Arr, rows, new T[cols]{}, index);
-	return new_Arr;
+	return Insert(Arr, rows, new T[cols]{}, index);
 }
 
 
@@ -473,12 +477,6 @@ void Push_col_front(T** Arr, const int rows, int& cols)
 template <typename T>
 void Insert_col(T** Arr, const int rows, int& cols, int index)
 {
-	if (index > cols)
-	{
-		cout << "Выход за пределы массива" << endl;
-		return;
-	}
-
 	/*for (int i = 0; i < rows; i++)
 	{
 		T* Buffer = new T[cols + 1]{};
@@ -500,21 +498,25 @@ void Insert_col(T** Arr, const int rows, int& cols, int index)
 template <typename T>
 T* Pop_back(T* Arr, int &n)
 {
-	T* new_Arr = new T[--n];
+	/*T* new_Arr = new T[--n];
 
 	for (int i = 0; i < n; i++) new_Arr[i] = Arr[i];
 	delete[] Arr;
-	return new_Arr;
+	return new_Arr;*/
+
+	return Erase(Arr, n, n - 1);
 }
 
 template <typename T>
 T* Pop_front(T* Arr, int &n)
 {
-	T* new_Arr = new T[--n];
+	/*T* new_Arr = new T[--n];
 
 	for (int i = 0; i < n; i++) new_Arr[i] = Arr[i + 1];
 	delete[] Arr;
-	return new_Arr;
+	return new_Arr;*/
+
+	return Erase(Arr, n, 0);
 }
 
 template <typename T>
@@ -546,8 +548,11 @@ T** Pop_row_back(T** Arr, int& rows, const int cols)
 	return new_Arr;*/
 
 	delete[] Arr[rows - 1];
-	T** new_Arr = Pop_back(Arr, rows);
-	return new_Arr;
+
+	/*T** new_Arr = Pop_back(Arr, rows);
+	return new_Arr;*/
+
+	return Pop_back(Arr, rows);
 }
 
 template <typename T>
@@ -561,8 +566,10 @@ T** Pop_row_front(T** Arr, int& rows, const int cols)
 	return new_Arr;*/
 
 	delete[] Arr[0];
-	T** new_Arr = Pop_front(Arr, rows);
-	return new_Arr;
+	/*T** new_Arr = Pop_front(Arr, rows);
+	return new_Arr;*/
+
+	return Pop_front(Arr, rows);
 }
 
 template <typename T>
@@ -581,14 +588,10 @@ T** Erase_row(T** Arr, int& rows, const int cols, int index)
 	delete[] Arr;
 	return new_Arr;*/
 
-	if (index >= rows)
-	{
-		cout << "Выход за пределы массива" << endl;
-		return Arr;
-	}
+	/*T** new_Arr = Erase(Arr, rows, index);
+	return new_Arr;*/
 
-	T** new_Arr = Erase(Arr, rows, index);
-	return new_Arr;
+	return Erase(Arr, rows, index);
 }
 
 
@@ -645,12 +648,6 @@ void Erase_col(T** Arr, const int rows, int& cols, int index)
 		Arr[i] = Buffer;
 	}
 	cols--;*/
-
-	if (index >= cols)
-	{
-		cout << "Выход за пределы массива" << endl;
-		return;
-	}
 
 	cols--;
 	for (int i = 0; i < rows; i++) Arr[i] = Erase(Arr[i], ++cols, index);
