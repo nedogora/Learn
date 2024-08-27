@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "stdafx.h"
 
 void FillRand(int Arr[], const int n, int min = 0, int max = 100);

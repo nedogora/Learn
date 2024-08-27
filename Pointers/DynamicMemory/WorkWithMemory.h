@@ -1,10 +1,10 @@
-#pragma once
+п»ї#pragma once
 #include "stdafx.h"
 
-// Выделение памяти
+// Р’С‹РґРµР»РµРЅРёРµ РїР°РјСЏС‚Рё
 template <typename T> T* Allocate(const int n);
 template <typename T> T** Allocate(const int rows, const int cols);
 
-// Очистка памяти
+// РћС‡РёСЃС‚РєР° РїР°РјСЏС‚Рё
 template <typename T> void Clear(T* Arr);
 template <typename T> void Clear(T* Arr, const int rows);
