@@ -1,24 +1,24 @@
-#include <iostream>
+п»ї#include <iostream>
 #include <Windows.h>
 using namespace std;
 
 void InputLine(char str[], const int N);
-int StringLength(char str[]);	// Возвращает длинну строки в символах
+int StringLength(char str[]);	// Р’РѕР·РІСЂР°С‰Р°РµС‚ РґР»РёРЅРЅСѓ СЃС‚СЂРѕРєРё РІ СЃРёРјРІРѕР»Р°С…
 
-void ToUpper(char str[]);	// Переводит строку в верхний регистр
-void ToLower(char str[]);	// Переводит строку в нижний регистр
-void Shrink(char str[]);	// Удаляет лишние пробелы из строки
-bool isPalindrome(char str[]);	// Определяет, является ли строка палиндромом
+void ToUpper(char str[]);	// РџРµСЂРµРІРѕРґРёС‚ СЃС‚СЂРѕРєСѓ РІ РІРµСЂС…РЅРёР№ СЂРµРіРёСЃС‚СЂ
+void ToLower(char str[]);	// РџРµСЂРµРІРѕРґРёС‚ СЃС‚СЂРѕРєСѓ РІ РЅРёР¶РЅРёР№ СЂРµРіРёСЃС‚СЂ
+void Shrink(char str[]);	// РЈРґР°Р»СЏРµС‚ Р»РёС€РЅРёРµ РїСЂРѕР±РµР»С‹ РёР· СЃС‚СЂРѕРєРё
+bool isPalindrome(char str[]);	// РћРїСЂРµРґРµР»СЏРµС‚, СЏРІР»СЏРµС‚СЃСЏ Р»Рё СЃС‚СЂРѕРєР° РїР°Р»РёРЅРґСЂРѕРјРѕРј
 
-bool isIntNumber(char str[]);	// Определяет, является ли строка целым числом
-int ToIntNumber(char str[]);	// Переводи строку в целое число
+bool isIntNumber(char str[]);	// РћРїСЂРµРґРµР»СЏРµС‚, СЏРІР»СЏРµС‚СЃСЏ Р»Рё СЃС‚СЂРѕРєР° С†РµР»С‹Рј С‡РёСЃР»РѕРј
+int ToIntNumber(char str[]);	// РџРµСЂРµРІРѕРґРё СЃС‚СЂРѕРєСѓ РІ С†РµР»РѕРµ С‡РёСЃР»Рѕ
 
-bool isBinNumber(char str[]);	// Определяет, является ли строка двоичным числом
-int degree(int n, int d);	//Возводит число в степень
-int BinToDec(char bin[]);	// Переводит двоичное число в десятичное
+bool isBinNumber(char str[]);	// РћРїСЂРµРґРµР»СЏРµС‚, СЏРІР»СЏРµС‚СЃСЏ Р»Рё СЃС‚СЂРѕРєР° РґРІРѕРёС‡РЅС‹Рј С‡РёСЃР»РѕРј
+int degree(int n, int d);	//Р’РѕР·РІРѕРґРёС‚ С‡РёСЃР»Рѕ РІ СЃС‚РµРїРµРЅСЊ
+int BinToDec(char bin[]);	// РџРµСЂРµРІРѕРґРёС‚ РґРІРѕРёС‡РЅРѕРµ С‡РёСЃР»Рѕ РІ РґРµСЃСЏС‚РёС‡РЅРѕРµ
 
-bool isHexNumber(char str[]);	// Определяет, является ли строка HEX числом
-int HexToDec(char hex[]);	// Переводит HEX число в десятичное
+bool isHexNumber(char str[]);	// РћРїСЂРµРґРµР»СЏРµС‚, СЏРІР»СЏРµС‚СЃСЏ Р»Рё СЃС‚СЂРѕРєР° HEX С‡РёСЃР»РѕРј
+int HexToDec(char hex[]);	// РџРµСЂРµРІРѕРґРёС‚ HEX С‡РёСЃР»Рѕ РІ РґРµСЃСЏС‚РёС‡РЅРѕРµ
 
 void ASCII()
 {
@@ -34,13 +34,13 @@ void main()
 	const int SIZE = 20;
 	char str[SIZE]{};
 
-	cout << "Введите строку: ";
+	cout << "Р’РІРµРґРёС‚Рµ СЃС‚СЂРѕРєСѓ: ";
 	//cin >> str;
 
 	/*
-		SetConsoleCP(1251);	//cin воспринимает символы в кодировке CP-1251
+		SetConsoleCP(1251);	//cin РІРѕСЃРїСЂРёРЅРёРјР°РµС‚ СЃРёРјРІРѕР»С‹ РІ РєРѕРґРёСЂРѕРІРєРµ CP-1251
 		cin.getline(str, SIZE);
-		SetConsoleCP(866);	//cout можут выводить символы только в кодировке CP-866
+		SetConsoleCP(866);	//cout РјРѕР¶СѓС‚ РІС‹РІРѕРґРёС‚СЊ СЃРёРјРІРѕР»С‹ С‚РѕР»СЊРєРѕ РІ РєРѕРґРёСЂРѕРІРєРµ CP-866
 	*/
 	InputLine(str, SIZE);
 	cout << str << endl;
@@ -48,8 +48,8 @@ void main()
 	cout << "Length: " << StringLength(str) << endl;
 
 	//ASCII();
-	/*cout << 'а' - 'А' << endl;
-	cout << (int)'А' << '\t'  << (int)'а' << endl;*/
+	/*cout << 'Р°' - 'Рђ' << endl;
+	cout << (int)'Рђ' << '\t'  << (int)'Р°' << endl;*/
 
 	cout << "\n----- To Upper -----" << endl;
 	ToUpper(str);
@@ -156,7 +156,7 @@ int ToIntNumber(char str[])
 {
 	if (isIntNumber(str) == false)
 	{
-		cout << "Это не целое число" << endl;
+		cout << "Р­С‚Рѕ РЅРµ С†РµР»РѕРµ С‡РёСЃР»Рѕ" << endl;
 		return 0;
 	}
 
