@@ -31,7 +31,7 @@ void main()
 	//char str[] = { 'H', 'e', 'l','l','o', 0};
 	//char str[]="Hello";
 
-	const int SIZE = 20;
+	const int SIZE = 256;
 	char str[SIZE]{};
 
 	cout << "Введите строку: ";
@@ -96,7 +96,8 @@ int StringLength(char str[])
 
 void ToUpper(char str[])
 {
-	for (int i = 0; str[i]; i++) if ((str[i] >= -32 && str[i] <= 0) || str[i] >= 97) str[i] -= 32;
+	for (int i = 0; str[i]; i++)str[i] = toupper(str[i]);
+	//for (int i = 0; str[i]; i++) if ((str[i] >= -32 && str[i] <= 0) || str[i] >= 97) str[i] -= 32;
 }
 
 void ToLower(char str[])
@@ -107,7 +108,8 @@ void ToLower(char str[])
 		if (str[i] >= 65 && str[i] <= 96) str[i] += 32;
 	}*/
 
-	for (int i = 0; str[i]; i++) if ((str[i] >= -64 && str[i] <= -33) || (str[i] >= 65 && str[i] <= 96)) str[i] += 32;
+	for (int i = 0; str[i]; i++) str[i] = tolower(str[i]);
+	//for (int i = 0; str[i]; i++) if ((str[i] >= -64 && str[i] <= -33) || (str[i] >= 65 && str[i] <= 96)) str[i] += 32;
 }
 
 void Shrink(char str[])
@@ -116,13 +118,14 @@ void Shrink(char str[])
 	{
 		while (str[i] == ' ' && str[i + 1] == ' ')
 		{
-			for (int j = i; str[j]; j++) str[j] = str[j + 1];
+			for (int j = i+1; str[j]; j++) str[j] = str[j + 1];
 		}
 	}
 }
 
 bool isPalindrome(char str[])
 {
+	//TODO
 	int n = StringLength(str);
 	bool is_palindrome = true;
 
@@ -198,6 +201,7 @@ int degree(int n, int d)
 
 int BinToDec(char bin[])
 {
+	if (isBinNumber(bin) == false) return 0;
 	int capacity = StringLength(bin);
 	int deg = capacity - 1;
 	int num = 0;
@@ -223,6 +227,8 @@ bool isHexNumber(char str[])
 
 int HexToDec(char hex[])
 {
+	if (isHexNumber(hex) == false) return 0;
+
 	int capacity = StringLength(hex);
 	int deg = capacity - 1;
 	int num = 0;
