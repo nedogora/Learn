@@ -33,8 +33,8 @@ void main()
 	//char str[]="Hello";
 
 	const int SIZE = 256;
-	char str[SIZE] = {};
-	//char str[SIZE] = "Аргентина манит негра";
+	//char str[SIZE] = {};
+	char str[SIZE] = "Аргентина манит негра";
 
 	cout << "Введите строку: ";
 	//cin >> str;
@@ -44,7 +44,7 @@ void main()
 		cin.getline(str, SIZE);
 		SetConsoleCP(866);	//cout можут выводить символы только в кодировке CP-866
 	*/
-	InputLine(str, SIZE);
+	//InputLine(str, SIZE);
 	cout << str << endl;
 
 	cout << "Length: " << StringLength(str) << endl;
@@ -132,26 +132,24 @@ void RemoveSymbol(char str[], char symbol)
 	{
 		if (str[i] == symbol)
 		{
-			for (int j = i + 1; str[j]; j++) str[j] = str[j + 1];
+			for (int j = i; str[j]; j++) str[j] = str[j + 1];
 		}
 	}
 }
 
 bool isPalindrome(char str[])
 {
-	//RemoveSymbol();
-	//ToLower(buffer);
 	int n = StringLength(str);
 	bool is_palindrome = true;
 
-	char* buffer = new char[n] {};
-	for (int i = 0; str[i]; i++) 
-		buffer[i] = str[i];
+	char* buffer = new char[n + 1] {};
+	for (int i = 0; str[i]; i++) buffer[i] = str[i];
 
 	RemoveSymbol(buffer, ' ');
 	ToLower(buffer);
 
-	for (int i = 0; i < StringLength(buffer); i++)
+	n = strlen(buffer);
+	for (int i = 0; i < n; i++)
 	{
 		if (buffer[i] != buffer[n - 1 - i])
 		{
@@ -253,6 +251,22 @@ bool isHexNumber(char str[])
 
 int HexToDec(char hex[])
 {
+	/*if (isHexNumber(hex) == false) return 0;
+
+	int capacity = StringLength(hex);
+	int deg = capacity - 1;
+	int num = 0;
+
+	for (int i = 0; i < capacity; i++)
+	{
+		if (hex[i] >= '0' && hex[i] <= '9') hex[i] -= 48;
+		if (hex[i] >= 'A' && hex[i] <= 'F') hex[i] -= 55;
+		if (hex[i] >= 'a' && hex[i] <= 'f') hex[i] -= 87;
+
+		num += degree(16, deg--) * (int)hex[i];
+	}
+	return num;*/
+
 	if (isHexNumber(hex) == false) return 0;
 
 	int capacity = StringLength(hex);
@@ -260,15 +274,14 @@ int HexToDec(char hex[])
 	int num = 0;
 	int weight = 1;
 
-	for (int i = capacity -1; i >= 0; i--, weight *= 16)
+	for (int i = capacity - 1; i >= 0; i--, weight *= 16)
 	{
 		if (hex[i] >= '0' && hex[i] <= '9') hex[i] -= 48;
 		if (hex[i] >= 'A' && hex[i] <= 'F') hex[i] -= 55;
 		if (hex[i] >= 'a' && hex[i] <= 'f') hex[i] -= 87;
 
 		//num += degree(16, deg--) * (int)hex[i];
-		//for (int i = 0; i < capacity; i++)
-			num += (hex[i]) * weight;
+		num += (hex[i]) * weight;
 	}
 	return num;
 }
