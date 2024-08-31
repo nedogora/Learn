@@ -8,7 +8,7 @@ int StringLength(char str[]);	// Возвращает длинну строки 
 void ToUpper(char str[]);	// Переводит строку в верхний регистр
 void ToLower(char str[]);	// Переводит строку в нижний регистр
 void Shrink(char str[]);	// Удаляет лишние пробелы из строки
-void RemoveSymbol(char str[], char symbol);
+void RemoveSymbol(char str[], char symbol);	//Удаляет из строки переданный символ
 bool isPalindrome(char str[]);	// Определяет, является ли строка палиндромом
 
 bool isIntNumber(char str[]);	// Определяет, является ли строка целым числом
