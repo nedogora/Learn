@@ -260,7 +260,7 @@ int HexToDec(char hex[])
 	int num = 0;
 	int weight = 1;
 
-	for (int i = 0; i < capacity; i++, weight *= 16)
+	for (int i = capacity -1; i >= 0; i--, weight *= 16)
 	{
 		if (hex[i] >= '0' && hex[i] <= '9') hex[i] -= 48;
 		if (hex[i] >= 'A' && hex[i] <= 'F') hex[i] -= 55;
@@ -268,7 +268,7 @@ int HexToDec(char hex[])
 
 		//num += degree(16, deg--) * (int)hex[i];
 		//for (int i = 0; i < capacity; i++)
-			num += (hex[capacity - 1 - i]) * weight;
+			num += (hex[i]) * weight;
 	}
 	return num;
 }
