@@ -8,6 +8,7 @@ int StringLength(char str[]);	// Возвращает длинну строки 
 void ToUpper(char str[]);	// Переводит строку в верхний регистр
 void ToLower(char str[]);	// Переводит строку в нижний регистр
 void Shrink(char str[]);	// Удаляет лишние пробелы из строки
+void RemoveSymbol(char str[], char symbol);
 bool isPalindrome(char str[]);	// Определяет, является ли строка палиндромом
 
 bool isIntNumber(char str[]);	// Определяет, является ли строка целым числом
@@ -32,7 +33,8 @@ void main()
 	//char str[]="Hello";
 
 	const int SIZE = 256;
-	char str[SIZE]{};
+	char str[SIZE] = {};
+	//char str[SIZE] = "Аргентина манит негра";
 
 	cout << "Введите строку: ";
 	//cin >> str;
@@ -52,18 +54,19 @@ void main()
 	cout << (int)'А' << '\t'  << (int)'а' << endl;*/
 
 	cout << "\n----- To Upper -----" << endl;
-	ToUpper(str);
+	//ToUpper(str);
 	cout << str << endl;
 
 	cout << "\n----- To Lower -----" << endl;
-	ToLower(str);
+	//ToLower(str);
 	cout << str << endl;
 
 	cout << "\n----- Shrink -----" << endl;
-	Shrink(str);
+	//Shrink(str);
 	cout << str << endl;
 
 	cout << "\nPalindrome: " << isPalindrome(str) << endl;
+	cout << str << endl;
 	cout << "\nIs Int Number: " << isIntNumber(str) << endl;
 
 	cout << "\n----- String to Int -----" << endl;
@@ -118,25 +121,46 @@ void Shrink(char str[])
 	{
 		while (str[i] == ' ' && str[i + 1] == ' ')
 		{
-			for (int j = i+1; str[j]; j++) str[j] = str[j + 1];
+			for (int j = i + 1; str[j]; j++) str[j] = str[j + 1];
+		}
+	}
+}
+
+void RemoveSymbol(char str[], char symbol)
+{
+	for (int i = 0; str[i]; i++)
+	{
+		if (str[i] == symbol)
+		{
+			for (int j = i + 1; str[j]; j++) str[j] = str[j + 1];
 		}
 	}
 }
 
 bool isPalindrome(char str[])
 {
-	//TODO
+	//RemoveSymbol();
+	//ToLower(buffer);
 	int n = StringLength(str);
 	bool is_palindrome = true;
 
-	for (int i = 0; i < n / 2; i++)
+	char* buffer = new char[n] {};
+	for (int i = 0; str[i]; i++) 
+		buffer[i] = str[i];
+
+	RemoveSymbol(buffer, ' ');
+	ToLower(buffer);
+
+	for (int i = 0; i < StringLength(buffer); i++)
 	{
-		if (str[i] != str[n - 1 - i])
+		if (buffer[i] != buffer[n - 1 - i])
 		{
 			is_palindrome = false;
 			break;
 		}
 	}
+
+	delete[] buffer;
 	return is_palindrome;
 }
 
@@ -203,10 +227,12 @@ int BinToDec(char bin[])
 {
 	if (isBinNumber(bin) == false) return 0;
 	int capacity = StringLength(bin);
-	int deg = capacity - 1;
+	//int deg = capacity - 1;
 	int num = 0;
+	int weight = 1;
 
-	for (int i = 0; i < capacity; i++) num += degree(2, deg--) * (((int)bin[i]) - 48);
+	//for (int i = 0; i < capacity; i++) num += degree(2, deg--) * (((int)bin[i]) - 48);
+	for (int i = 0; i < capacity; i++, weight *= 2) num += (bin[capacity - 1 - i] - '0') * weight;
 	return num;
 }
 
@@ -230,16 +256,19 @@ int HexToDec(char hex[])
 	if (isHexNumber(hex) == false) return 0;
 
 	int capacity = StringLength(hex);
-	int deg = capacity - 1;
+	//int deg = capacity - 1;
 	int num = 0;
+	int weight = 1;
 
-	for (int i = 0; i < capacity; i++)
+	for (int i = 0; i < capacity; i++, weight *= 16)
 	{
 		if (hex[i] >= '0' && hex[i] <= '9') hex[i] -= 48;
 		if (hex[i] >= 'A' && hex[i] <= 'F') hex[i] -= 55;
 		if (hex[i] >= 'a' && hex[i] <= 'f') hex[i] -= 87;
 
-		num += degree(16, deg--) * (int)hex[i];
+		//num += degree(16, deg--) * (int)hex[i];
+		//for (int i = 0; i < capacity; i++)
+			num += (hex[capacity - 1 - i]) * weight;
 	}
 	return num;
 }
