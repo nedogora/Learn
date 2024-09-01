@@ -21,12 +21,12 @@ public:
 		cout << "Destructor:\t" << this << endl;
 	}
 
-	double GetX()
+	double GetX() const
 	{
 		return this->x;
 	}
 
-	double GetY()
+	double GetY() const
 	{
 		return this->y;
 	}
@@ -41,13 +41,14 @@ public:
 		this->y = y;
 	}
 
-	double Distance(Point& other)
+	double Distance(const Point& other)
 	{
 		return (pow((other.x - this->x), 2) + pow((other.y - this->y), 2))*0.5;
 	}
+
 };
 
-double Distance(Point& A, Point& B)
+double Distance(const Point& A, const Point& B)
 {
 	return (pow((B.GetX() - A.GetX()), 2) + pow((B.GetY() - A.GetY()), 2))*0.5;
 }
