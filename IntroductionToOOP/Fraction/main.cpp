@@ -1,10 +1,8 @@
-#include <iostream>
+ï»¿#include <iostream>
 using namespace std;
 
 #define delimiter cout << "\n=================================================================\n"
 #define tab '\t'
-
-
 
 class Fraction
 {
@@ -13,7 +11,25 @@ class Fraction
 	int denominator;
 
 public:
-	Fraction(int numerator = 0, int denominator = 1)
+	Fraction()
+	{
+		this->integer = 0;
+		this->numerator = 0;
+		this->denominator = 1;
+
+		cout << "Default Constructor:" << tab << this << endl;
+	}
+
+	Fraction(int integer)
+	{
+		this->integer = integer;
+		this->numerator = 0;
+		this->denominator = 1;
+
+		cout << "Constructor:" << tab << this << endl;
+	}
+
+	Fraction(int numerator, int denominator)
 	{
 		this->integer = 0;
 		this->numerator = numerator;
@@ -91,7 +107,7 @@ public:
 
 	////////////////////////////////////////////////////////
 
-	void Reduce()	//Ñîêðàùåíèå äðîáè
+	Fraction& Reduce()	//Ð¡Ð¾ÐºÑ€Ð°Ñ‰ÐµÐ½Ð¸Ðµ Ð´Ñ€Ð¾Ð±Ð¸
 	{
 		int n = this->numerator;
 		int d = this->denominator;
@@ -105,11 +121,14 @@ public:
 
 		this->numerator /= n;
 		this->denominator /= n;
+
+		return *this;
 	}
 
-	void ToProper()		//Ïåðåâîä â ïðàâèëüíóþ äðîáü
+	Fraction& ToProper()		//ÐŸÐµÑ€ÐµÐ²Ð¾Ð´ Ð² Ð¿Ñ€Ð°Ð²Ð¸Ð»ÑŒÐ½ÑƒÑŽ Ð´Ñ€Ð¾Ð±ÑŒ
 	{
 		Reduce();
+
 		if (numerator > denominator)
 		{
 			integer += numerator / denominator;
@@ -120,20 +139,23 @@ public:
 			integer = 1;
 			numerator = 0;
 		}
+
+		return *this;
 	}
 
-	void ToImproper()	//Ïåðåâîä â íåïðàâèëüíóþ äðîáü
+	Fraction& ToImproper()	//ÐŸÐµÑ€ÐµÐ²Ð¾Ð´ Ð² Ð½ÐµÐ¿Ñ€Ð°Ð²Ð¸Ð»ÑŒÐ½ÑƒÑŽ Ð´Ñ€Ð¾Ð±ÑŒ
 	{
 		if (integer > 0)
 		{
 			numerator += denominator * integer;
 			integer = 0;
 		}
+		return *this;
 	}
 
 	////////////////////////////////////////////////////////
 
-	Fraction operator+(Fraction other)
+	/*Fraction operator+(Fraction other)
 	{
 		this->ToImproper();
 		other.ToImproper();
@@ -145,9 +167,9 @@ public:
 
 		cout << "Operator +" << tab << this << endl;
 		return Temp;
-	}
+	}*/
 
-	Fraction operator-(Fraction other)
+	/*Fraction operator-(Fraction other)
 	{
 		this->ToImproper();
 		other.ToImproper();
@@ -159,9 +181,9 @@ public:
 
 		cout << "Operator -" << tab << this << endl;
 		return Temp;
-	}
+	}*/
 
-	Fraction operator*(Fraction other)
+	/*Fraction operator*(Fraction other)
 	{
 		this->ToImproper();
 		other.ToImproper();
@@ -173,9 +195,9 @@ public:
 
 		cout << "Operator *" << tab << this << endl;
 		return Temp;
-	}
+	}*/
 
-	Fraction operator/(Fraction other)
+	/*Fraction operator/(Fraction other)
 	{
 		this->ToImproper();
 		other.ToImproper();
@@ -187,21 +209,264 @@ public:
 
 		cout << "Operator /" << tab << this << endl;
 		return Temp;
+	}*/
+
+	////////////////////////////////////////////////////////
+
+	Fraction& operator+=(Fraction other)
+	{
+		this->ToImproper();
+		other.ToImproper();
+
+		this->numerator = (this->numerator * other.denominator) + (other.numerator * this->denominator);
+		this->denominator = this->denominator * other.denominator;
+		this->ToProper();
+		this->Reduce();
+
+		cout << "Operator +=" << tab << this << endl;
+		return *this;
+	}
+
+	Fraction& operator-=(Fraction other)
+	{
+		this->ToImproper();
+		other.ToImproper();
+
+		this->numerator = (this->numerator * other.denominator) - (other.numerator * this->denominator);
+		this->denominator = this->denominator * other.denominator;
+		this->ToProper();
+		this->Reduce();
+
+		cout << "Operator -=" << tab << this << endl;
+		return *this;
+	}
+
+	Fraction& operator*=(Fraction other)
+	{
+		this->ToImproper();
+		other.ToImproper();
+
+		this->numerator = this->numerator * other.numerator;
+		this->denominator = this->denominator * other.denominator;
+		this->ToProper();
+		this->Reduce();
+
+		cout << "Operator *=" << tab << this << endl;
+		return *this;
+	}
+
+	Fraction& operator/=(Fraction other)
+	{
+		this->ToImproper();
+		other.ToImproper();
+
+		this->numerator = this->numerator * other.denominator;
+		this->denominator = this->denominator * other.numerator;
+		this->ToProper();
+		this->Reduce();
+
+		cout << "Operator /=" << tab << this << endl;
+		return *this;
+	}
+
+	////////////////////////////////////////////////////////
+
+	Fraction& operator++()
+	{
+		this->integer++;
+		cout << "Operator ++" << tab << this << endl;
+		return *this;
+	}
+
+	Fraction& operator--()
+	{
+		this->integer--;
+		cout << "Operator --" << tab << this << endl;
+		return *this;
 	}
 
 	////////////////////////////////////////////////////////
 
 	void Print()
 	{
-		if (integer == 0) cout << numerator << "/" << denominator;
+		/*if (integer == 0) cout << numerator << "/" << denominator << endl;
 		else if (numerator == 0) cout << integer;
 		else cout << integer << "(" << numerator << "/" << denominator << ")";
+		cout << endl;*/
+
+		if (integer) cout << integer;
+		if (numerator)
+		{
+			if (integer) cout << "(";
+			cout << numerator << "/" << denominator;
+			if (integer) cout << ")";
+		}
+		else if (integer == 0)cout << 0;
+		//else cout << integer << "(" << numerator << "/" << denominator << ")";
 		cout << endl;
 	}
 };
 
+Fraction operator+(Fraction left, Fraction right)
+{
+	left.ToImproper();
+	right.ToImproper();
+
+	/*Fraction Temp;
+	Temp.SetN(left.GetN() * right.GetD() + right.GetN() * left.GetD());
+	Temp.SetD(left.GetD() * right.GetD());
+	Temp.Reduce();
+	Temp.ToProper();
+
+	return Temp;*/
+
+	cout << "Operator +" << endl;
+
+	return Fraction
+	(
+		left.GetN() * right.GetD() + right.GetN() * left.GetD(),
+		left.GetD() * right.GetD()
+	).ToProper().Reduce();
+}
+
+Fraction operator-(Fraction left, Fraction right)
+{
+	left.ToImproper();
+	right.ToImproper();
+
+	/*Fraction Temp;
+	Temp.numerator = (this->numerator * other.denominator) - (other.numerator * this->denominator);
+	Temp.denominator = this->denominator * other.denominator;
+	Temp.Reduce();
+
+	cout << "Operator -" << tab << this << endl;
+	return Temp;*/
+
+	cout << "Operator -" << endl;
+
+	return Fraction
+	(
+		left.GetN() * right.GetD() - right.GetN() * left.GetD(),
+		left.GetD() * right.GetD()
+	).ToProper().Reduce();
+}
+
+Fraction operator*(Fraction left, Fraction right)
+{
+	left.ToImproper();
+	right.ToImproper();
+
+	cout << "Operator *" << endl;
+
+	return Fraction
+	(
+		left.GetN() * right.GetN(),
+		left.GetD() * right.GetD()
+	).ToProper().Reduce();
+}
+
+Fraction operator/(Fraction left, Fraction right)
+{
+	left.ToImproper();
+	right.ToImproper();
+
+	cout << "Operator /" << endl;
+
+	return Fraction
+	(
+		left.GetN() * right.GetD(),
+		left.GetD() * right.GetN()
+	).ToProper().Reduce();
+}
+
+////////////////////////////////////////////////////////
+
+bool operator==(Fraction left, Fraction right)
+{
+	left.ToImproper();
+	right.ToImproper();
+
+	cout << "Operator ==" << endl;
+
+	return (left.GetN() == right.GetN() && left.GetD() == right.GetD());
+}
+
+bool operator!=(Fraction left, Fraction right)
+{
+	left.ToImproper();
+	right.ToImproper();
+
+	cout << "Operator !=" << endl;
+
+	return !(left.GetN() == right.GetN() && left.GetD() == right.GetD());
+}
+
+bool operator>(Fraction left, Fraction right)
+{
+	left.ToImproper();
+	right.ToImproper();
+
+	left.SetN(left.GetN() * right.GetD());
+	right.SetN(right.GetN() * left.GetD());
+	left.SetD(left.GetD() * right.GetD());
+	right.SetD(right.GetD() * left.GetD());
+
+	cout << "Operator >" << endl;
+
+	return (left.GetN() > right.GetN());
+}
+
+bool operator<(Fraction left, Fraction right)
+{
+	left.ToImproper();
+	right.ToImproper();
+
+	left.SetN(left.GetN() * right.GetD());
+	right.SetN(right.GetN() * left.GetD());
+	left.SetD(left.GetD() * right.GetD());
+	right.SetD(right.GetD() * left.GetD());
+
+	cout << "Operator <" << endl;
+
+	return (left.GetN() < right.GetN());
+}
+
+bool operator>=(Fraction left, Fraction right)
+{
+	left.ToImproper();
+	right.ToImproper();
+
+	left.SetN(left.GetN() * right.GetD());
+	right.SetN(right.GetN() * left.GetD());
+	left.SetD(left.GetD() * right.GetD());
+	right.SetD(right.GetD() * left.GetD());
+
+	cout << "Operator >=" << endl;
+
+	return (left.GetN() >= right.GetN());
+}
+
+bool operator<=(Fraction left, Fraction right)
+{
+	left.ToImproper();
+	right.ToImproper();
+
+	left.SetN(left.GetN() * right.GetD());
+	right.SetN(right.GetN() * left.GetD());
+	left.SetD(left.GetD() * right.GetD());
+	right.SetD(right.GetD() * left.GetD());
+
+	cout << "Operator <=" << endl;
+
+	return (left.GetN() <= right.GetN());
+}
+
 //#define FIRST
 //#define ARITHMETIC
+//#define CONSTRUCTORS_CHECK
+//#define COMPARISON
+//#define COMPOUND_ASSIGNMENTS
+#define INCREMENT_DECREMENT
 
 void main()
 {
@@ -230,8 +495,6 @@ void main()
 #ifdef ARITHMETIC
 	Fraction A(1, 1, 3);
 	A.Print();
-	A.ToImproper();
-	A.Print();
 	delimiter;
 
 	Fraction B(3, 4);
@@ -239,8 +502,6 @@ void main()
 	delimiter;
 
 	Fraction C = A + B;
-	C.Print();
-	C.ToProper();
 	C.Print();
 	delimiter;
 
@@ -250,18 +511,64 @@ void main()
 
 	Fraction E = A * B;
 	E.Print();
-	E.ToProper();
-	E.Print();
 	delimiter;
 
 	Fraction F = A / B;
 	F.Print();
-	F.ToProper();
-	F.Print();
 	delimiter;
 #endif // ARITHMETIC
 
-	double a = 2;
+#ifdef CONSTRUCTORS_CHECK
 	Fraction A;		//Default Constructor
+	A.Print();
+
+	Fraction B = 3;	//Single argument constructor
+	B.Print();
+
+	Fraction C(1, 2);
+	C.Print();
+
+	Fraction D(2, 3, 4);
+	D.Print();
+#endif // CONSTRUCTORS_CHECK
+
+#ifdef COMPARISON
+	Fraction A(9, 8);
+	Fraction B(1, 1, 8);
+
+	cout << (A == B) << endl;
+	cout << (A != B) << endl;
+	cout << (A > B) << endl;
+	cout << (A < B) << endl;
+	cout << (A >= B) << endl;
+	cout << (A <= B) << endl;
+#endif // COMPARISON
+
+#ifdef COMPOUND_ASSIGNMENTS
+	Fraction A(2, 3);
+	Fraction B(1, 3, 4);
+
+	A += B;
+	A.Print();
+	delimiter;
+
+	A -= B;
+	A.Print();
+	delimiter;
+
+	A *= B;
+	A.Print();
+	delimiter;
+
+	A /= B;
+	A.Print();
+#endif // COMPOUND_ASSIGNMENTS
+
+	Fraction A(3, 4);
+	++A;
+	A.Print();
+	delimiter;
+
+	--A;
 	A.Print();
 }
