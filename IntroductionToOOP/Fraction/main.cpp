@@ -564,6 +564,7 @@ void main()
 	A.Print();
 #endif // COMPOUND_ASSIGNMENTS
 
+#ifdef INCREMENT_DECREMENT
 	Fraction A(3, 4);
 	++A;
 	A.Print();
@@ -571,4 +572,6 @@ void main()
 
 	--A;
 	A.Print();
+#endif // INCREMENT_DECREMENT
+
 }
