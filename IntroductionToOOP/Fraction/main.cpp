@@ -4,6 +4,12 @@ using namespace std;
 #define delimiter cout << "\n=================================================================\n"
 #define tab '\t'
 
+class Fraction;
+Fraction operator+(Fraction left, Fraction right);
+Fraction operator-(Fraction left, Fraction right);
+Fraction operator*(Fraction left, Fraction right);
+Fraction operator/(Fraction left, Fraction right);
+
 class Fraction
 {
 	int integer;
@@ -153,6 +159,14 @@ public:
 		return *this;
 	}
 
+	Fraction Inverted()
+	{
+		Fraction inverted = *this;
+		inverted.ToImproper();
+		swap(inverted.numerator, inverted.denominator);
+		return inverted;
+	}
+
 	////////////////////////////////////////////////////////
 
 	/*Fraction operator+(Fraction other)
@@ -215,7 +229,7 @@ public:
 
 	Fraction& operator+=(Fraction other)
 	{
-		this->ToImproper();
+		/*this->ToImproper();
 		other.ToImproper();
 
 		this->numerator = (this->numerator * other.denominator) + (other.numerator * this->denominator);
@@ -224,12 +238,15 @@ public:
 		this->Reduce();
 
 		cout << "Operator +=" << tab << this << endl;
-		return *this;
+		return *this;*/
+
+		cout << "Operator +=" << endl;
+		return *this = *this + other;
 	}
 
-	Fraction& operator-=(Fraction other)
+	Fraction& operator-=(const Fraction other)
 	{
-		this->ToImproper();
+		/*this->ToImproper();
 		other.ToImproper();
 
 		this->numerator = (this->numerator * other.denominator) - (other.numerator * this->denominator);
@@ -238,12 +255,15 @@ public:
 		this->Reduce();
 
 		cout << "Operator -=" << tab << this << endl;
-		return *this;
+		return *this;*/
+
+		cout << "Operator -=" << endl;
+		return *this = *this - other;
 	}
 
-	Fraction& operator*=(Fraction other)
+	Fraction& operator*=(const Fraction& other)
 	{
-		this->ToImproper();
+		/*this->ToImproper();
 		other.ToImproper();
 
 		this->numerator = this->numerator * other.numerator;
@@ -252,12 +272,15 @@ public:
 		this->Reduce();
 
 		cout << "Operator *=" << tab << this << endl;
-		return *this;
+		return *this;*/
+
+		cout << "Operator *=" << endl;
+		return *this = *this * other;
 	}
 
-	Fraction& operator/=(Fraction other)
+	Fraction& operator/=(const Fraction other)
 	{
-		this->ToImproper();
+		/*this->ToImproper();
 		other.ToImproper();
 
 		this->numerator = this->numerator * other.denominator;
@@ -266,7 +289,10 @@ public:
 		this->Reduce();
 
 		cout << "Operator /=" << tab << this << endl;
-		return *this;
+		return *this;*/
+		
+		cout << "Operator /=" << endl;
+		return *this = *this / other;
 	}
 
 	////////////////////////////////////////////////////////
@@ -278,11 +304,28 @@ public:
 		return *this;
 	}
 
+	Fraction operator++(int)
+	{
+		Fraction old = *this;
+		this->integer++;
+		cout << "Operator ++" << tab << this << endl;
+		return old;
+	}
+
+
 	Fraction& operator--()
 	{
 		this->integer--;
 		cout << "Operator --" << tab << this << endl;
 		return *this;
+	}
+
+	Fraction operator--(int)
+	{
+		Fraction old = *this;
+		this->integer--;
+		cout << "Operator --" << tab << this << endl;
+		return old;
 	}
 
 	////////////////////////////////////////////////////////
@@ -367,7 +410,7 @@ Fraction operator*(Fraction left, Fraction right)
 
 Fraction operator/(Fraction left, Fraction right)
 {
-	left.ToImproper();
+	/*left.ToImproper();
 	right.ToImproper();
 
 	cout << "Operator /" << endl;
@@ -376,29 +419,35 @@ Fraction operator/(Fraction left, Fraction right)
 	(
 		left.GetN() * right.GetD(),
 		left.GetD() * right.GetN()
-	).ToProper().Reduce();
+	).ToProper().Reduce();*/
+
+	cout << "Operator /" << endl;
+	return left * right.Inverted();
 }
 
 ////////////////////////////////////////////////////////
 
 bool operator==(Fraction left, Fraction right)
 {
-	left.ToImproper();
-	right.ToImproper();
+	left.ToImproper().Reduce();
+	right.ToImproper().Reduce();
 
 	cout << "Operator ==" << endl;
 
 	return (left.GetN() == right.GetN() && left.GetD() == right.GetD());
 }
 
-bool operator!=(Fraction left, Fraction right)
+bool operator!=(const Fraction& left, const Fraction& right)
 {
-	left.ToImproper();
+	/*left.ToImproper();
 	right.ToImproper();
 
 	cout << "Operator !=" << endl;
 
-	return !(left.GetN() == right.GetN() && left.GetD() == right.GetD());
+	return !(left.GetN() == right.GetN() && left.GetD() == right.GetD());*/
+
+	cout << "Operator !=" << endl;
+	return !(left == right);
 }
 
 bool operator>(Fraction left, Fraction right)
@@ -433,7 +482,7 @@ bool operator<(Fraction left, Fraction right)
 
 bool operator>=(Fraction left, Fraction right)
 {
-	left.ToImproper();
+	/*left.ToImproper();
 	right.ToImproper();
 
 	left.SetN(left.GetN() * right.GetD());
@@ -443,12 +492,15 @@ bool operator>=(Fraction left, Fraction right)
 
 	cout << "Operator >=" << endl;
 
-	return (left.GetN() >= right.GetN());
+	return (left.GetN() >= right.GetN());*/
+
+	cout << "Operator >=" << endl;
+	return !(left < right);
 }
 
 bool operator<=(Fraction left, Fraction right)
 {
-	left.ToImproper();
+	/*left.ToImproper();
 	right.ToImproper();
 
 	left.SetN(left.GetN() * right.GetD());
@@ -458,15 +510,18 @@ bool operator<=(Fraction left, Fraction right)
 
 	cout << "Operator <=" << endl;
 
-	return (left.GetN() <= right.GetN());
+	return (left.GetN() <= right.GetN());*/
+
+	cout << "Operator <=" << endl;
+	return !(left > right);
 }
 
 //#define FIRST
 //#define ARITHMETIC
 //#define CONSTRUCTORS_CHECK
-//#define COMPARISON
+#define COMPARISON
 //#define COMPOUND_ASSIGNMENTS
-#define INCREMENT_DECREMENT
+//#define INCREMENT_DECREMENT
 
 void main()
 {
@@ -493,11 +548,11 @@ void main()
 #endif // FIRST
 
 #ifdef ARITHMETIC
-	Fraction A(1, 1, 3);
+	Fraction A(2, 3, 4);
 	A.Print();
 	delimiter;
 
-	Fraction B(3, 4);
+	Fraction B(3, 4, 5);
 	B.Print();
 	delimiter;
 
@@ -505,7 +560,7 @@ void main()
 	C.Print();
 	delimiter;
 
-	Fraction D = A - B;
+	Fraction D = B - A;
 	D.Print();
 	delimiter;
 
@@ -533,20 +588,20 @@ void main()
 #endif // CONSTRUCTORS_CHECK
 
 #ifdef COMPARISON
-	Fraction A(9, 8);
-	Fraction B(1, 1, 8);
+	Fraction A(1, 2);
+	Fraction B(5, 10);
 
 	cout << (A == B) << endl;
 	cout << (A != B) << endl;
 	cout << (A > B) << endl;
 	cout << (A < B) << endl;
-	cout << (A >= B) << endl;
+	cout << (Fraction(1, 3) >= Fraction(5, 10)) << endl;
 	cout << (A <= B) << endl;
 #endif // COMPARISON
 
 #ifdef COMPOUND_ASSIGNMENTS
-	Fraction A(2, 3);
-	Fraction B(1, 3, 4);
+	Fraction A(4, 3);
+	Fraction B(3, 4);
 
 	A += B;
 	A.Print();
