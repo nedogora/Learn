@@ -26,11 +26,22 @@ public:
 		cout << "Default Constructor:" << tab << this << endl;
 	}
 
-	Fraction(int integer)
+	explicit Fraction(int integer)
 	{
 		this->integer = integer;
 		this->numerator = 0;
 		this->denominator = 1;
+
+		cout << "Constructor:" << tab << this << endl;
+	}
+
+	Fraction(double number)
+	{
+		this->integer = (int)number;
+		number -= this->integer;
+		this->numerator = number * 100;
+		this->denominator = 100;
+		this->Reduce();
 
 		cout << "Constructor:" << tab << this << endl;
 	}
@@ -290,7 +301,7 @@ public:
 
 		cout << "Operator /=" << tab << this << endl;
 		return *this;*/
-		
+
 		cout << "Operator /=" << endl;
 		return *this = *this / other;
 	}
@@ -327,6 +338,20 @@ public:
 		cout << "Operator --" << tab << this << endl;
 		return old;
 	}
+
+	////////////////////////////////////////////////////////
+
+	/*explicit*/ operator int()
+	{
+		return this->integer;
+	}
+
+	/*explicit*/ operator double()
+	{
+		double value = this->integer + (double)this->numerator / this->denominator;
+		return value;
+	}
+
 
 	////////////////////////////////////////////////////////
 
@@ -516,12 +541,55 @@ bool operator<=(Fraction left, Fraction right)
 	return !(left > right);
 }
 
+////////////////////////////////////////////////////////
+
+ostream& operator<<(ostream& os, const Fraction& obj)
+{
+	/*if (obj.GetI() == 0)
+		cout << obj.GetN() << "/" << obj.GetD();
+	else if (obj.GetN() == 0)
+		cout << obj.GetI();
+	else
+		cout << obj.GetI() << "(" << obj.GetN() << "/" << obj.GetD() << ")";*/
+
+	if (obj.GetI()) cout << obj.GetI();
+	if (obj.GetN())
+	{
+		if (obj.GetI()) cout << "(";
+		cout << obj.GetN() << "/" << obj.GetD();
+		if (obj.GetI()) cout << ")";
+	}
+	else if (obj.GetI() == 0) cout << 0;
+	//cout << endl;
+	
+	return os;
+}
+
+istream& operator>> (istream& is, Fraction& obj)
+{
+	int i, n, d;
+	cout << "Integer: ";
+	is >> i;
+	cout << "Numerator: ";
+	is >> n;
+	cout << "Denominator: ";
+	is >> d;
+
+	obj.SetI(i);
+	obj.SetN(n);
+	obj.SetD(d);
+	return is;
+}
+
 //#define FIRST
 //#define ARITHMETIC
 //#define CONSTRUCTORS_CHECK
-#define COMPARISON
+//#define COMPARISON
 //#define COMPOUND_ASSIGNMENTS
 //#define INCREMENT_DECREMENT
+//#define STREAM_OPERATORS
+#define CONVERSIONS_1
+//#define CONVERSIONS_2
 
 void main()
 {
@@ -628,5 +696,28 @@ void main()
 	--A;
 	A.Print();
 #endif // INCREMENT_DECREMENT
+
+#ifdef STREAM_OPERATORS
+	Fraction A(2, 3, 4);
+	cout << A << endl;
+	cin >> A;
+	cout << A << endl;
+#endif // STREAM_OPERATORS
+
+#ifdef CONVERSIONS_1
+	Fraction A = 2.75;
+	cout << A << endl;
+#endif // CONVERSIONS_1
+
+#ifdef CONVERSIONS_2
+	Fraction A(2, 3, 4);
+	int a = A;
+	cout << a << endl;
+
+	double b = double(A);
+	cout << b << endl;
+
+	
+#endif // CONVERSIONS_2
 
 }
