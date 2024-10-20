@@ -1,4 +1,5 @@
-﻿#include <iostream>
+﻿#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
 using namespace std;
 
 #define delimiter cout << "\n=================================================================\n"
@@ -37,6 +38,7 @@ public:
 
 	Fraction(double number)
 	{
+		number += 1e-10;	//+= 0.0000000001
 		this->integer = (int)number;
 		number -= this->integer;
 		this->numerator = number * 1000000000;
@@ -567,7 +569,7 @@ ostream& operator<<(ostream& os, const Fraction& obj)
 
 istream& operator>> (istream& is, Fraction& obj)
 {
-	int i, n, d;
+	/*int i, n, d;
 	cout << "Integer: ";
 	is >> i;
 	cout << "Numerator: ";
@@ -577,7 +579,22 @@ istream& operator>> (istream& is, Fraction& obj)
 
 	obj.SetI(i);
 	obj.SetN(n);
-	obj.SetD(d);
+	obj.SetD(d);*/
+
+	const int SIZE = 256;
+	char sz_buffer[SIZE]{};
+	cin >> sz_buffer;
+	int number[3]{};
+	int n = 0;
+	const char delimiters[] = "()/ ";
+	for (char* pch = strtok(sz_buffer, delimiters); pch; pch = strtok(NULL, delimiters))
+		number[n++] = std::atoi(pch);
+	switch (n)
+	{
+	case 1: obj = Fraction(number[0]); break;
+	case 2: obj = Fraction(number[0], number[1]); break;
+	case 3: obj = Fraction(number[0], number[1], number[2]); break;
+	}
 	return is;
 }
 
@@ -587,8 +604,8 @@ istream& operator>> (istream& is, Fraction& obj)
 //#define COMPARISON
 //#define COMPOUND_ASSIGNMENTS
 //#define INCREMENT_DECREMENT
-//#define STREAM_OPERATORS
-#define CONVERSIONS_1
+#define STREAM_OPERATORS
+//#define CONVERSIONS_1
 //#define CONVERSIONS_2
 
 void main()
@@ -700,12 +717,13 @@ void main()
 #ifdef STREAM_OPERATORS
 	Fraction A(2, 3, 4);
 	cout << A << endl;
+	cout << "Введите дробь: ";
 	cin >> A;
 	cout << A << endl;
 #endif // STREAM_OPERATORS
 
 #ifdef CONVERSIONS_1
-	Fraction A = 2.75;
+	Fraction A = .333;
 	cout << A << endl;
 #endif // CONVERSIONS_1
 
