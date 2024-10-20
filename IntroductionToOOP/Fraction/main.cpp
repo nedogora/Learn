@@ -39,8 +39,8 @@ public:
 	{
 		this->integer = (int)number;
 		number -= this->integer;
-		this->numerator = number * 100;
-		this->denominator = 100;
+		this->numerator = number * 1000000000;
+		this->denominator = 1000000000;
 		this->Reduce();
 
 		cout << "Constructor:" << tab << this << endl;
