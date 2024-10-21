@@ -354,7 +354,6 @@ public:
 		return value;
 	}
 
-
 	////////////////////////////////////////////////////////
 
 	void Print()
@@ -563,7 +562,7 @@ ostream& operator<<(ostream& os, const Fraction& obj)
 	}
 	else if (obj.GetI() == 0) cout << 0;
 	//cout << endl;
-	
+
 	return os;
 }
 
@@ -584,17 +583,21 @@ istream& operator>> (istream& is, Fraction& obj)
 	const int SIZE = 256;
 	char sz_buffer[SIZE]{};
 	cin >> sz_buffer;
+	
 	int number[3]{};
 	int n = 0;
 	const char delimiters[] = "()/ ";
+	
 	for (char* pch = strtok(sz_buffer, delimiters); pch; pch = strtok(NULL, delimiters))
 		number[n++] = std::atoi(pch);
+	
 	switch (n)
 	{
 	case 1: obj = Fraction(number[0]); break;
 	case 2: obj = Fraction(number[0], number[1]); break;
 	case 3: obj = Fraction(number[0], number[1], number[2]); break;
 	}
+
 	return is;
 }
 
@@ -735,7 +738,6 @@ void main()
 	double b = double(A);
 	cout << b << endl;
 
-	
-#endif // CONVERSIONS_2
 
+#endif // CONVERSIONS_2
 }
