@@ -589,7 +589,7 @@ istream& operator>> (istream& is, Fraction& obj)
 	const char delimiters[] = "()/ ";
 	
 	for (char* pch = strtok(sz_buffer, delimiters); pch; pch = strtok(NULL, delimiters))
-		number[n++] = std::atoi(pch);
+		number[n++] = std::atoi(pch);	//ASCII to INT
 	
 	switch (n)
 	{
