@@ -17,7 +17,7 @@ public:
 		cout << "Constructor:" << tab << this << endl;
 	}
 
-	String(const char* s) : size(strlen(s) + 1), str(new char[size] {})
+	String(const char* s) : String(strlen(s)+1)
 	{
 		//this->size = strlen(s)+1;
 		//this->str = new char[size]{};
@@ -34,12 +34,12 @@ public:
 
 	////////////////////////////////////////////////////////
 
-	String(const String& other) :size(other.size), str(new char[size] {})
+	String(const String& other) :String(other.str)
 	{
 		//this->size = other.size;
 		//this->str = new char[size]{};
 
-		for (int i = 0; i < size; i++) this->str[i] = other.str[i];
+		//for (int i = 0; i < size; i++) this->str[i] = other.str[i];
 		cout << "CopyConstructor:" << tab << this << endl;
 	}
 
