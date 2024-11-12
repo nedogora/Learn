@@ -6,21 +6,21 @@ using namespace std;
 
 class String
 {
-	char* str;
 	int size;
+	char* str;
 
 public:
-	String(int size = 80)
+	String(int size = 80) :size(size), str(new char[size] {})
 	{
-		this->str = new char[size] {};
-		this->size = size;
+		//this->size = size;
+		//this->str = new char[size] {};
 		cout << "Constructor:" << tab << this << endl;
 	}
 
-	String(const char* s)
+	String(const char* s) : size(strlen(s) + 1), str(new char[size] {})
 	{
-		this->size = strlen(s)+1;
-		this->str = new char[size]{};
+		//this->size = strlen(s)+1;
+		//this->str = new char[size]{};
 
 		for (int i = 0; i < size; i++) this->str[i] = s[i];
 		cout << "Constructor:" << tab << this << endl;
@@ -34,20 +34,21 @@ public:
 
 	////////////////////////////////////////////////////////
 
-	String(const String& other)
+	String(const String& other) :size(other.size), str(new char[size] {})
 	{
-		this->size = other.size;
-		this->str = new char[size]{};
+		//this->size = other.size;
+		//this->str = new char[size]{};
 
 		for (int i = 0; i < size; i++) this->str[i] = other.str[i];
 		cout << "CopyConstructor:" << tab << this << endl;
 	}
 
-	String(String&& other)
+	String(String&& other) :size(other.size), str(other.str)
 	{
-		this->size = other.size;
-		this->str = other.str;
+		//this->size = other.size;
+		//this->str = other.str;
 		other.str = nullptr;
+		other.size = 0;
 		cout << "MoveConstructor:" << tab << this << endl;
 	}
 
