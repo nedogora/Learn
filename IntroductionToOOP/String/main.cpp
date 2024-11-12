@@ -19,8 +19,8 @@ public:
 
 	String(const char* s)
 	{
-		this->size = strlen(s);
-		this->str = new char[size + 1]{};
+		this->size = strlen(s)+1;
+		this->str = new char[size]{};
 
 		for (int i = 0; i < size; i++) this->str[i] = s[i];
 		cout << "Constructor:" << tab << this << endl;
@@ -37,7 +37,7 @@ public:
 	String(const String& other)
 	{
 		this->size = other.size;
-		this->str = new char[size + 1]{};
+		this->str = new char[size]{};
 
 		for (int i = 0; i < size; i++) this->str[i] = other.str[i];
 		cout << "CopyConstructor:" << tab << this << endl;
@@ -53,12 +53,17 @@ public:
 
 	////////////////////////////////////////////////////////
 
-	char* GetStr()
+	const char* GetStr() const
+	{
+		return this->str;
+	}
+	
+	char* GetStr() 
 	{
 		return this->str;
 	}
 
-	int GetSize()
+	int GetSize() const
 	{
 		return this->size;
 	}
@@ -67,9 +72,10 @@ public:
 
 	String& operator=(const String& other)
 	{
+		if (this == &other)return *this;
 		this->size = other.size;
 		delete[] str;
-		this->str = new char[size + 1]{};
+		this->str = new char[size]{};
 
 		for (int i = 0; i < size; i++)
 		{
@@ -82,40 +88,60 @@ public:
 
 	String& operator=(String&& other)
 	{
+		if (this == &other) return *this;
 		delete[] str;
 		this->size = other.size;
 		this->str = other.str;
 		other.str = nullptr;
+		other.size = 0;
 		
 		cout << "MoveAssignment:" << tab << this << endl;
 		return *this;
 	}
 
-	String operator+(String& other)
+	/*String operator+(String& other)
 	{
-		String temp;
-		temp.size = this->size + other.size + 1;
+		String temp = this->size + other.size + 1;
 
 		for (int i = 0; i < this->size; i++) temp.str[i] = this->str[i];
 		for (int i = this->size; i < temp.size; i++) temp.str[i] = other.str[i - this->size];
 
 		return temp;
+	}*/
+
+	char operator[](int index) const
+	{
+		if (index < 0 || index>this->size)throw std::exception("out of range in const[]");
+		return this->str[index];
+	}
+
+	char& operator[](int index) 
+	{
+		if (index < 0 || index>this->size)throw std::exception("out of range in []");
+		return this->str[index];
 	}
 
 	////////////////////////////////////////////////////////
 
-	void Print()
+	void Print() const
 	{
 		cout << this->str << endl;
 	}
 };
 
-ostream& operator<<(ostream& os, /*const*/ String& obj)
+String operator+(const String& left, const String& right)
 {
-	for (int i = 0; i < obj.GetSize(); i++) cout << obj.GetStr()[i];
-	cout << endl;
+	String temp = left.GetSize() + right.GetSize() - 1;
+	for (int i = 0; i < left.GetSize(); i++) temp[i] = left[i];
+	//for (int i = left.GetSize()-1; i < temp.GetSize(); i++) temp[i] = right[i - left.GetSize()+1];
+	for (int i = 0; i < right.GetSize(); i++) temp[i + left.GetSize() - 1] = right[i];
+	return temp;
+}
 
-	return os;
+ostream& operator<<(ostream& os, const String& obj)
+{
+	//for (int i = 0; obj.GetStr()[i]; i++) cout << obj.GetStr()[i];
+	return os << obj.GetStr();
 }
 
 void main()
